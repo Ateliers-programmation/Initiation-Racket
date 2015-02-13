@@ -237,7 +237,8 @@ variable et non de sa valeur! Comme:
 > (+ a 1) ; Notez bien on ne modifie pas a.
 6
 > (define b 5)
-> (+ a b)
+> (define c (+ a b))
+> c
 10
 ```
 
@@ -255,6 +256,136 @@ dangereuses avec nos variables. Mais notez bien que si vous faites:
 
 Vous avez juste *caché* (shadowed en anglais) la définition précédente!
 Nous y reviendrons. :)
+
+## Logique booléene
+
+En Racket, les valeurs logiques *vrai* et *faux* aussi appellées *booléens* se
+noment respectivement `#t` et `#f` on peut aussi utiliser les synonymes `true`
+et `false`.
+
+### Les operateurs de comparaison arithmérique et logique
+
+Pour nous en convaincre mettons Racket à l'épreuve!
+
+```racket
+> (boolean? #f) ; Alors #f c'est un booleen?
+#t ; Timidement Racket vous réponds oui.
+> (boolean? #t)
+#t
+> (equal? #t true) ; via equal? on demande à racket si deux valeurs sont égales.
+#t ; Elles sont égales! Encore heureux :)
+> (equal? false true)
+#f ; Vous vous en doutiez?
+```
+
+Pour résumer equal fonctionne comme ceçi:
+
+|  x   |   y   | (equal? x y) |
+| ---- |:-----:|:-------------|
+| true | false | false |
+| true | true  | true  |
+
+*Important*: Appliqué à des nombres on utilisera cependant `=` même si `equal`
+fonctionne pour des raisons qui vous seront expliquées dans très peu de temps. :)
+
+```racket
+> (= 5 5) ; `=`
+#t
+> (equal? 5 5) ; Même si cela fonctionne sur les nombres ont préfére `=`.
+#t
+> (= 4 5)
+#f
+```
+
+*Note*: Si vous etes très curieux vous pouvez aller voir la documentation de [equal?](http://docs.racket-lang.org/reference/booleans.html?q=equal%3F#%28def._%28%28quote._~23~25kernel%29._equal~3f%29%29)
+et de [`=`](http://docs.racket-lang.org/reference/generic-numbers.html#%28def._%28%28quote._~23~25kernel%29._~3d%29%29).  :)
+
+Si vous souhaitiez demander à Racket si deux choses n'étaient pas égales comme
+vous aurriez fait avec le « ≠ » mathématique il faudrai écrire:
+
+```racket
+> (not (equal? 5 5)) ; (equal? 5 5) vaut vrai et not vous rends le contraire
+#f ; Donc faux. :)
+> (not (equal? 5 6))
+#t
+```
+
+Pour les autres opérateurs de comparaison aucune surprise!
+
+```racket
+> (define a 5)
+> (> a 6)
+#f
+> (> 6 a)
+#t
+> (>= a 5)
+#t
+> (!= a 6)
+#t
+```
+
+### Comparaisons logiques
+
+Dans le cas ou vous aimeriez exprimer des conditions plus complexes vous aurez
+besoin du `and` et du `or` logique.
+
+`(and a b)` est vrai si et seulement a est vrai **et que** b est vrai aussi.
+C'est une *intersection* en bon français. ;)
+
+```racket
+> (and false false)
+#f
+> (and false true)
+#f
+> (and true false)
+#f
+> (and true true)
+#t
+```
+
+`(or a b)` est vrai si a *ou* b sont vrai. On parle d'une *conjonction*.
+
+```racket
+> (or false false)
+#f
+> (or false true)
+#t
+> (or true false)
+#t
+> (or true true)
+#t
+```
+
+*Note*:Attention contrairement au *ou* du langage naturel qui est exclusif. Le *ou* en
+programmation est inclusif.
+Au restaurant si le serveur vous propose la glace ou la tarte vous ne pouvez pas
+prendre les deux comme avec racket. ;)
+
+Vous aurrez aussi surement besoin de la *négation* noté `not` qui donne l'opposé
+d'un booléen.
+
+```racket
+> (not true)
+#f
+> (not false)
+#t
+> (not (not false))
+#f
+> (not (not true))
+#t
+```
+
+Pas trop de surprises jusque la! :)
+
+
+
+
+
+
+
+
+
+
 
 
 
