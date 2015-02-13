@@ -199,6 +199,69 @@ Si vous ne connaissez pas certaines de ces fonctions aucun soucis nous
 reviendrons dessus en temps et en heure! Mais on vois bien que nos parenthèses
 ne sont qu'une histoire de syntaxe!
 
+## Variables
+
+En programmation comme en mathématiques l'ont peut donner un nom à une valeur,
+pour eviter de devoir la recalculer et de la réecrire sans arret et aussi
+pour ne plus s'encombrer l'esprit avec c'est à dire abstraire son contenu!
+
+En racket on le fait au travers de la forme `(define nom valeur)`.
+
+```racket
+> (define a 5)
+```
+
+Votre professeur de mathématiques aurait écrit «¤Soit *a* un nombre dont la
+valeur est 5¤».
+
+Racket acquièse en silence mais il à pris compte de votre *définition* vous
+pouvez verifez par vous même! Si il n'avait pas accepté votre définition il
+l'aurait déjà signalé.
+
+```racket
+> a ; Dit voir tu connais la valeur de a mon bon Racket?
+5
+```
+
+Merci Racket! `a` ici est une variable. En général on connais pas la valeur à
+l'avance néanmoins.
+
+D'ailleurs comme si vous pensiez que les expressions allaient nous lachez sachez
+que le nom d'une variable comme «¤a¤» est une expression! Dont la valeur est ce
+que nous avons définit plus tôt ici `5`.
+
+Du coup on à gagner le droit d'exprimer valeurs qui *dépendent* de cette
+variable et non de sa valeur! Comme:
+
+```racket
+> (+ a 1) ; Notez bien on ne modifie pas a.
+6
+> (define b 5)
+> (+ a b)
+10
+```
+
+On vera plus tard que l'ont peut faire des chôses très puissantes mais
+dangeureuses avec nos variables. Mais notez bien que si vous faites:
+
+```racket
+> (define a 5)
+> a
+5
+> (define a 6) ; Héhé Racket je te piège!
+> a
+6
+```
+
+Vous avez juste *caché* (shadowed en anglais) la définition précédente!
+Nous reviendront dessus. :)
+
+
+
+
+
+
+
 
 
 
