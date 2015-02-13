@@ -377,27 +377,42 @@ d'un booléen.
 
 Pas trop de surprises jusque la! :)
 
+### Expressions conditionnelles
 
+Maintenant que nous avons dans notre poche des conditions nous pouvez commencer
+à écrire des programmes qui ont un *comportement* en effet avec une construction
+de plus qui est le `if` nous allons pouvoir faire des choses amusantes!
 
+A partir de maintenant nous allons utiliser la partie éditeur de votre
+environnement racket il s'agit de la partie au dessus du top-level.
 
+pour tester votre code vous devrez cliquer sur *run now*.
 
+```racket
+(define a 1)
+(define b 1)
+(if (= a b)
+    "ils sont égaux"
+    "Ils ne sont pas égaux.") ;; Je vous laisse deviner ce qui va être afficher! :)
+```
 
+Tout if à la forme suivante: `(if predicat cas_vrai cas_faux).
+Le *predicat* est une expression booléene c'est à dire elle renvoye un booléen.
+Le *cas_vrai* et le *cas_faux* quand à eux sont des expressions quelconques.
 
+#### Exercice: in-rectangle?
 
+A partir de la on à de quoi se faire un petit programme:
+On va se donner 6 variables x0, y0 et x1, y1 qui représentent le couple de coordonnées
+d'un rectangle.
+Et a, b un point.
 
+Notre exercice va être de savoir si a, b est dans le rectangle ou pas!
+Dans le cas ou il y est vous pourrez renvoyer `#t` ou un message attestant cela.
+Et sinon `#f` ou un message negatif. :)
 
+A vos éditeurs! pour tester clicker sur `Run now` ou `Executer` en français.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```racket
+; Votre réponse ici ! ;)
 
