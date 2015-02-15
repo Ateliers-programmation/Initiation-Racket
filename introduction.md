@@ -21,7 +21,7 @@ langage que nous allons étudier, [Racket][3], est un dérivé d'un langage appe
 1958, les [LISP][5].
 
 Leur but premier est de permettre la communication avec un ordinateur et aussi
-d'échanger avec d'autres programmeurs au moyen d'un langage non-ambigu.
+d'échanger avec d'autres programmeurs au moyen d'un langage non ambiguë.
 
 Ici nous nous intéresserons à Racket en particulier.
 Trêve de détails historiques! Nous distillerons plus d'informations sur les
@@ -89,7 +89,7 @@ pour voir ce qu'il va se passer comme:
 > ; Ahah Tu ne peut pas me lire je suis un commentaire car je commence par ';'.
 ```
 
-### S-Expressions
+## S-Expressions
 
 Avant de commencer a taper des expressions, il faut savoir quelque chose sur
 Racket. Il s'agit d'un LISP et tout les LISP ont la particularité d'avoir une
@@ -99,7 +99,7 @@ et suivies d'autres S-expressions.
 
 [6]:https://fr.wikipedia.org/wiki/S-expression
 
-#### Explications
+### Explications
 
 Pour écrire une simple addition nous avons l'habitude d'écrire ainsi:
 ```
@@ -117,7 +117,7 @@ comprendre...
 3
 ```
 
-Ouch! c'est loin de ce que nous attendions! En effet comme cité précédemment,
+Aie! C'est loin de ce que nous attendions! En effet comme cité précédemment,
 racket ne jure que par des S-Expressions!
 
 Nous devrons donc écrire notre expression arithmétique comme cela:
@@ -182,23 +182,13 @@ Petit retour sur le concept d'expression que nous employons partout:
 Bien entendu on dispose de tout les opérateurs usuels ce petit tableau vous fait
 la correspondance:
 
-| Fonctions      | Mathématiques | Racket     |
-| -------------- |:-------------:| ----------:|
-| Addition       |   x + y       | (+ x y)    |
-| Soustraction   |   x - y       | (- x y)    |
-| Multiplication |   x * y       | (\* x y)   |
-| Division       |   x / y       | (/ x y)    |
-<!--
-| Sinus          |   sin x       | (sin x)    |
-| Puissance      |   x ^ y       | (expt x y) |
-| Exponentielle  |   e ^ x       | (exp x)    |
-| Logarithme     |   log x       | (log x)    |
+Fonctions | Mathématiques | Racket
+-------------- |:-------------:| ----------:
+Addition       |  x + y | `(+ x y)`
+Soustraction   |  x - y | `(- x y)`
+Multiplication |  x * y | `(\* x y)`
+Division       |  x / y | `(/ x y)`
 
-
-Si vous ne connaissez pas certaines de ces fonctions, aucun soucis nous
-reviendrons dessus en temps et en heure! Mais on vois bien que nos parenthèses
-ne sont qu'une histoire de syntaxe!
--->
 ## Variables
 
 En programmation comme en mathématiques on peut donner un nom à une valeur,
@@ -211,7 +201,7 @@ En racket on le fait au travers de la forme `(define nom valeur)`.
 > (define a 5)
 ```
 
-Votre professeur de mathématiques aurait écrit «¤Soit *a* un nombre dont la
+Votre professeur de mathématiques aurait écrit «Soit *a* un nombre dont la
 valeur est 5¤».
 
 Racket acquiesce en silence mais il a prit compte de votre *définition*. Vous
@@ -254,22 +244,19 @@ dangereuses avec nos variables. Mais notez bien que si vous faites:
 6
 ```
 
-Vous avez juste *caché* (shadowed en anglais) la définition précédente!
+Vous avez juste *caché* ("shadowed" en anglais) la définition précédente!
 Nous y reviendrons. :)
 
-## Logique booléene
+## Logique booléenne
 
-En Racket, les valeurs logiques *vrai* et *faux* aussi appellées *booléens* se
-noment respectivement `#t` et `#f` on peut aussi utiliser les synonymes `true`
+En Racket, les valeurs logiques *vrai* et *faux* aussi appelées *booléens* se
+nomment respectivement `#t` et `#f` on peut aussi utiliser les synonymes `true`
 et `false`.
-
-### Les operateurs de comparaison arithmérique et logique
-
-Pour nous en convaincre mettons Racket à l'épreuve!
 
 ```racket
 > (boolean? #f) ; Alors #f c'est un booleen?
-#t ; Timidement Racket vous réponds oui.
+#t
+> ; Timidement Racket vous réponds oui.
 > (boolean? #t)
 #t
 > (equal? #t true) ; via equal? on demande à racket si deux valeurs sont égales.
@@ -278,14 +265,96 @@ Pour nous en convaincre mettons Racket à l'épreuve!
 #f ; Vous vous en doutiez?
 ```
 
-Pour résumer equal fonctionne comme ceçi:
+## Comparaisons logiques
 
-|  x   |   y   | (equal? x y) |
-| ---- |:-----:|:-------------|
-| true | false | false |
-| true | true  | true  |
+Dans le cas ou vous aimeriez exprimer des conditions plus complexes vous aurez
+besoin du `and`, du `or` et du `not` logique.
 
-*Important*: Appliqué à des nombres on utilisera cependant `=` même si `equal`
+#### Intersection `and`
+
+`(and a b)` est vrai si et seulement a est vrai **et que** b est vrai aussi.
+C'est une *intersection* en bon français. ;)
+
+```racket
+> (and false false)
+#f
+> (and false true)
+#f
+> (and true false)
+#f
+> (and true true)
+#t
+```
+Table de vérité:
+
+x | y | `racket (and x y)`
+:---:|:---:|:-------:
+`#f` | `#f` | `#f`
+`#f` | `#t` | `#f`
+`#t` | `#f` | `#f`
+`#t` | `#t` | `#t`
+
+#### Conjonction `or`
+
+`(or a b)` est vrai si a *ou* b sont vrai. On parle d'une *conjonction*.
+
+```racket
+> (or false false)
+#f
+> (or false true)
+#t
+> (or true false)
+#t
+> (or true true)
+#t
+```
+
+*Note*: Attention contrairement au *ou* du langage naturel qui est exclusif.
+Le *ou* en programmation est inclusif.
+
+Exemple: Au restaurant si le serveur vous propose la glace ou la tarte vous ne
+pouvez pas prendre les deux comme avec racket. ;)
+
+Table de vérité:
+
+x | y | `(or x y)`
+:---:|:--:|:-------:
+`#f` | `#f` | `#f`
+`#f` | `#t` | `#t`
+`#t` | `#f` | `#t`
+`#t` | `#t` | `#t`
+
+#### Négation `not`
+
+Vous aurez aussi surement besoin de la *négation* noté `not` qui donne l'opposé
+d'un booléen.
+
+```racket
+> (not true)
+#f
+> (not false)
+#t
+> (not (not false))
+#f
+> (not (not true))
+#t
+```
+
+Table de vérité:
+
+x | `(not x)`
+:---:|:-------:
+`#f` | `#t`
+`#t` | `#f`
+
+Pas trop de surprises jusque la! :)
+
+### Les comparaisons arithmétique
+
+Comme pour l'algèbre booléenne il existe des comparaisons pour l'algèbre des
+nombres.
+
+*Important*: Appliqué à des nombres on utilisera cependant `=` même si `equal?`
 fonctionne pour des raisons qui vous seront expliquées dans très peu de temps. :)
 
 ```racket
@@ -297,11 +366,11 @@ fonctionne pour des raisons qui vous seront expliquées dans très peu de temps.
 #f
 ```
 
-*Note*: Si vous etes très curieux vous pouvez aller voir la documentation de [equal?](http://docs.racket-lang.org/reference/booleans.html?q=equal%3F#%28def._%28%28quote._~23~25kernel%29._equal~3f%29%29)
+*Note*: Si vous êtes très curieux vous pouvez aller voir la documentation de [equal?](http://docs.racket-lang.org/reference/booleans.html?q=equal%3F#%28def._%28%28quote._~23~25kernel%29._equal~3f%29%29)
 et de [`=`](http://docs.racket-lang.org/reference/generic-numbers.html#%28def._%28%28quote._~23~25kernel%29._~3d%29%29).  :)
 
 Si vous souhaitiez demander à Racket si deux choses n'étaient pas égales comme
-vous aurriez fait avec le « ≠ » mathématique il faudrai écrire:
+vous auriez fait avec le « ≠ » mathématique il faudrait écrire:
 
 ```racket
 > (not (equal? 5 5)) ; (equal? 5 5) vaut vrai et not vous rends le contraire
@@ -320,62 +389,48 @@ Pour les autres opérateurs de comparaison aucune surprise!
 #t
 > (>= a 5)
 #t
-> (!= a 6)
-#t
+> (<= a 5)
+#f
 ```
 
-### Comparaisons logiques
+#### Exercice: `in-rectangle?`
 
-Dans le cas ou vous aimeriez exprimer des conditions plus complexes vous aurez
-besoin du `and` et du `or` logique.
+A partir de maintenant nous allons utiliser la partie éditeur de votre
+environnement racket il s'agit de la partie au dessus du top-level.
 
-`(and a b)` est vrai si et seulement a est vrai **et que** b est vrai aussi.
-C'est une *intersection* en bon français. ;)
+Pour tester votre code vous devrez cliquer sur *run now*.
+
+A partir de la on à de quoi se faire un petit programme:
+
+Ennoncé:
+On va se donner 6 variables `x0`, `y0` et `x1`, `y1` qui représentent le couple
+de coordonnées d'un rectangle, Et `a` et `b` un représentent point.
+
+Notre exercice va être de savoir si le point représenté par a, b est dans le
+rectangle ou pas!
+Une simple expression booléeenne devrait suffir!
+
+A vos éditeurs! Pour tester cliquer sur `Run now` ou `Exécuter` en français.
 
 ```racket
-> (and false false)
-#f
-> (and false true)
-#f
-> (and true false)
-#f
-> (and true true)
-#t
+; Notre rectangle.
+(define x0 0)
+(define y0 0)
+(define x1 10)
+(define y1 10)
+
+; Notre point.
+(define a  5)
+(define b  5)
+
+; in-rectangle?
+(and (and (>= a x0) (<= a x1))
+     (and (>= b y0) (<= b y1)))
+
+; Ou bien
+(and (<= x0 a x1 )
+     (<= y0 b y1))
 ```
-
-`(or a b)` est vrai si a *ou* b sont vrai. On parle d'une *conjonction*.
-
-```racket
-> (or false false)
-#f
-> (or false true)
-#t
-> (or true false)
-#t
-> (or true true)
-#t
-```
-
-*Note*:Attention contrairement au *ou* du langage naturel qui est exclusif. Le *ou* en
-programmation est inclusif.
-Au restaurant si le serveur vous propose la glace ou la tarte vous ne pouvez pas
-prendre les deux comme avec racket. ;)
-
-Vous aurrez aussi surement besoin de la *négation* noté `not` qui donne l'opposé
-d'un booléen.
-
-```racket
-> (not true)
-#f
-> (not false)
-#t
-> (not (not false))
-#f
-> (not (not true))
-#t
-```
-
-Pas trop de surprises jusque la! :)
 
 ### Expressions conditionnelles
 
@@ -383,36 +438,147 @@ Maintenant que nous avons dans notre poche des conditions nous pouvez commencer
 à écrire des programmes qui ont un *comportement* en effet avec une construction
 de plus qui est le `if` nous allons pouvoir faire des choses amusantes!
 
-A partir de maintenant nous allons utiliser la partie éditeur de votre
-environnement racket il s'agit de la partie au dessus du top-level.
+#### `if` expressions
 
-pour tester votre code vous devrez cliquer sur *run now*.
+La construction `if` en Racket correspond au "si prédicat alors expression" de
+La logique. Il s'avère qu'en Racket comme en [OCaml]() ou [Haskell]() ou [Rust]().
+Il s'agit d'une expression cela veut dire qu'une fois évalué votre if à une valeur! :)
+
+Tout if à la forme suivante: `(if prédicat cas_vrai cas_faux).
+
 
 ```racket
 (define a 1)
 (define b 1)
 (if (= a b)
     "ils sont égaux"
-    "Ils ne sont pas égaux.") ;; Je vous laisse deviner ce qui va être afficher! :)
+    "Ils ne sont pas égaux.")
+; Je vous laisse deviner quelle va être le résultat de l'évaluation de notre if! :)
 ```
 
-Tout if à la forme suivante: `(if predicat cas_vrai cas_faux).
-Le *predicat* est une expression booléene c'est à dire elle renvoye un booléen.
+Le *predicat* est une expression booléenne c'est à dire elle renvoie un booléen.
 Le *cas_vrai* et le *cas_faux* quand à eux sont des expressions quelconques.
 
-#### Exercice: in-rectangle?
+*Note*: En Racket les deux branches du `if` ne sont pas obligées de renvoyer le même
+type contrairement à OCaml attention! ;)
 
-A partir de la on à de quoi se faire un petit programme:
-On va se donner 6 variables x0, y0 et x1, y1 qui représentent le couple de coordonnées
-d'un rectangle.
-Et a, b un point.
+#### Exercice: calcul de la valeur absolue d'un nombre
 
-Notre exercice va être de savoir si a, b est dans le rectangle ou pas!
-Dans le cas ou il y est vous pourrez renvoyer `#t` ou un message attestant cela.
-Et sinon `#f` ou un message negatif. :)
+En mathématiques la valeur absolue d'un nombre réel est sa valeur numérique sans
+tenir compte de son signe. On la note *| nombre réel |*.
 
-A vos éditeurs! pour tester clicker sur `Run now` ou `Executer` en français.
+Exemples: `|-4| = 4` et `|4| = 4`.
+
+A vous de le coder!
+Pour cela définissez une variable `x` qui sera égale a un nombre négatif ou
+positif. Nous verrons juste après comment reprendre votre code pour en faire
+quelque chose de réutilisable!
 
 ```racket
-; Votre réponse ici ! ;)
+(define x -5)
+
+(if (< 0)
+    (- x)
+    x)
+```
+
+### Fonctions
+
+Comme vous le pressentiez les programmeurs ne passent pas leur vie à
+copier coller des bouts de code ils essayent d'extraire des abstractions et des
+généralisations de leurs solutions ou de leurs problèmes.
+
+Et un concept fondamental en la matière est la **fonction**. Il s'agit d'un
+sous-programme qui peut prendre des **paramettres** et qui renvoie une valeur!
+
+Chose amusante une fonction est aussi une valeur! Nous allons en utiliser
+partout tellement ce principe est puissant. D'ailleurs le paradigme de
+*programmation fonctionnel* viens du concept de fonction.
+
+#### Fonctions anonymes
+
+Il est donc temps de faire une fonction pour notre exercice sur `in-rectangle?`
+qui va nous renvoyer un booléen!
+
+Nous allons faire cela via la construction `lambda` on écrit une "fonction
+anonyme".
+
+```racket
+((lambda (x0 y0 x1 y1 a b)
+(and (and (>= a x0) (<= a x1))
+     (and (>= b y0) (<= b y1))))
+     0 0 10 10 5 5)
+```
+
+#### Fonction `nommées`
+
+Mais cela pause un problème... Si nous voulons réutiliser notre fonction, Nous
+allons devoir retaper notre `lambda` à chaque fois. Il nous faudrait une
+manière de "nommer" notre fonction!.
+
+Nous allons le faire via un `define`.
+
+```racket
+(define in-rectangle?
+    (lambda (x0 y0 x1 y1 a b)
+    (and (and (>= a x0) (<= a x1))
+         (and (>= b y0) (<= b y1)))))
+```
+
+Via cette méthode nous ne pourrons écrire des fonctions qui se rappellent elles
+mêmes! On les appellera des fonctions récursives et nous allons en reparler dans
+très peu de temps!
+
+C'est pourquoi il existe une autre forme "abrégée", utilisant simplement `define`
+sans utiliser `lambda`.
+
+```racket
+(define (in-rectangle? x0 y0 x1 y1 a b)
+    (and (and (>= a x0) (<= a x1))
+         (and (>= b y0) (<= b y1))))
+```
+
+Pourquoi pas écrire une fonction pour faire le calcul de la valeur absolue d'un
+nombre que nous avions fait en exercice plus tôt?
+
+Nous l'appellerions `abs`.
+
+```racket
+(define (abs x)
+    (if (< x 0)
+        (- x)
+        x))
+```
+
+### Fonctions récursives
+
+Maintenant que nous savons faire de fonctions nous aimerions pouvoir décrire des
+programmes qui répètent une action, ou calculent quelque chose qui nécessite de
+faire plusieurs fois un traitement avant de terminer.
+
+Pour cela en Racket nous nous tournerons naturellement vers les fonctions dites
+récursives. Il s'agit de fonctions qui vont se rappeler elles même avec de
+nouveaux paramètres.
+
+Cependant il faut que nos fonctions **terminent** c'est à dire qu'elles rendent
+leur résultat.
+
+#### Récurrence
+
+Des algorithmiques célèbres et des mathématiciens ont trouvé pour cela une
+rigueur. Il s'agit du concept extrêmement puissant de **récurrence**.
+
+Ce concept nécessite de découpé notre problèmes en sous problèmes facile à
+résoudre que nous appellerons des **cas de bases** et d'un autre cas qui nous permet
+de retomber vers nos cas de bases en effectuant au passage le calcul que nous
+désirons effectuer on appellera cela notre **cas inductif**.
+
+#### Exercice: somme de 0 à n.
+
+```racket
+(define (somme x)
+    (+ x (if (not(= x 0))
+        (somme (- x 1))
+        0)))
+```
 
