@@ -204,7 +204,7 @@ En racket on le fait au travers de la forme `(define nom valeur)`.
 Votre professeur de mathématiques aurait écrit «Soit *a* un nombre dont la
 valeur est 5¤».
 
-Racket acquiesce en silence mais il a prit compte de votre *définition*. Vous
+Racket acquiesce en silence mais il a pris compte de votre *définition*. Vous
 pouvez vérifiez par vous même! S'il n'avait pas accepté votre définition il
 l'aurait déjà signalé.
 
@@ -220,7 +220,7 @@ D'ailleurs si vous pensiez que les expressions allaient nous lâcher sachez
 que le nom d'une variable comme «a» est une expression! Expression dont la valeur est ce
 que nous avons définit plus tôt, ici `5`.
 
-Du coup on a gagner le droit d'exprimer des valeurs qui *dépendent* de cette
+Du coup on a gagné le droit d'exprimer des valeurs qui *dépendent* de cette
 variable et non de sa valeur! Comme:
 
 ```racket
